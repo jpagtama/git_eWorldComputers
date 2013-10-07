@@ -143,12 +143,13 @@ class Main extends CI_Controller {
         $this->load->view('create-an-account');
     }
     
-    public function products($category = null) {
+    public function product_path($base_category = null, $category = null) {
         if($category == null)
             $category = "Desktops";
         else
             $category = str_replace('-', ' ', ucfirst($category));
         $_SESSION['current_view'] = $category;
+        $_SESSION['base_category'] = $base_category;
         $this->load->model('getdb');
         $data['product'] = $this->getdb->product($category);
         $this->load->view('header');
@@ -160,6 +161,27 @@ class Main extends CI_Controller {
         $this->load->view('social-links');
         $this->load->view('products-page', $data);
         $this->load->view('footer');
+    }
+    public function product_focus($productid = null) {
+        $this->load->model('getdb');
+        $data['product'] = $this->getdb->productbyid($productid);
+        $this->load->view('header');
+        $this->login();
+        $this->load->view('global-search');
+        $this->load->view('global-navigation');
+        $this->load->view('catalog-navigation');
+        $this->load->view('newsletter');
+        $this->load->view('social-links');
+        $this->load->view('product-focus', $data);
+        $this->load->view('footer');
+        
+    }
+    public function getcategory($productid = null) {
+        $this->load->model('getdb');
+        $category = $this->getdb->getcategory($productid);
+        return $category;
+        
+        
     }
 
 //function for loading login form or logout button

@@ -501,6 +501,9 @@ article.product strong {
 /*************************************/
 /*Miscellaneous                      */
 /*************************************/
+.pwd a{
+    text-decoration:none;
+}
 .std + .static-block {
     margin-top: 35px;
     padding: 10px 3px 0 15px;

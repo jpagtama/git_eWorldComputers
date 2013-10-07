@@ -71,7 +71,12 @@ class GetDB extends CI_Model {
     }
     
     public function product($category) {
-        $query = $this->db->query("SELECT * FROM product AS p INNER JOIN category AS c ON c.id = p.cat_id WHERE UPPER(c.cat_name) = UPPER('" . $category ."')");
+        $query = $this->db->query("SELECT p.id,p.name,p.price,p.image FROM product AS p INNER JOIN category AS c ON c.id = p.cat_id WHERE UPPER(c.cat_name) = UPPER('" . $category ."')");
         return $query->result_array();
     }
+    public function productbyid($id) {
+        $query = $this->db->query("SELECT p.id,p.name,p.price,p.image,p.description,c.cat_name FROM product AS p INNER JOIN category AS c ON c.id = p.cat_id where p.id = '" . $id ."'");
+        return $query->row_array();
+    }
+   
 }
